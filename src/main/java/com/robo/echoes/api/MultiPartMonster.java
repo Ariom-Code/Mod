@@ -34,6 +34,7 @@ public abstract class MultiPartMonster<T extends MultiPartEntity<?>> extends Mon
      * @return true if damage was taken, false otherwise
      */
     public boolean hurtPart(T part, DamageSource source, float damage) {
+        System.out.println("dégats redigirigés");
         return this.hurt(source, damage);
     }
 

@@ -31,9 +31,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.ArrayList; // Pour utiliser ArrayList
-import java.util.List; // Pour utiliser List
-
 
 public class IllagerEntity extends MultiPartMonster<MultiPartEntity<IllagerEntity>> implements IAnimatable{
 
@@ -67,14 +64,26 @@ public class IllagerEntity extends MultiPartMonster<MultiPartEntity<IllagerEntit
     }
 
     @Override
+    public boolean hurtPart(MultiPartEntity<IllagerEntity> part, DamageSource source, float damage) {
+        if (part == head) return hurt(source, 100000f);
+        return super.hurtPart(part, source, damage);
+    }
+
+    @Override
     protected MultiPartEntity<IllagerEntity>[] createParts() {
-        this.head = new MultiPartEntity<>(this, 0.8f, 2.1f, 0f, 1.8f, 0f);
+        this.head = new MultiPartEntity<>(this, 0.5f, 0.5f, 0f, 1.8f, 0f);
         return new MultiPartEntity[]{this.head};
     }
 
+    @Override
     public void tick() {
         resetPartOffsets();
         super.tick();
+    }
+
+    @Override
+    public boolean isPickable() {
+        return super.isPickable();
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
